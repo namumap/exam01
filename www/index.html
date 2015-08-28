@@ -16,6 +16,7 @@
             .width-md-3 { width: 30%; float: left; margin-right: 5px; }
             .btn-horizontal { text-align: center; }
             .btn-horizontal .ui-btn { padding-right: 30px; padding-left: 50px; }
+            .text-center { text-align: center; }
         </style>
     </head>
     <body>
@@ -24,15 +25,16 @@
                 <h1>가위 바위 보</h1>
             </div>
             <div data-role="content" data-theme="a">
-                <h2>컴퓨터 : <span id="#app_txt">...</span></h2>
+                <h2 class="text-center">(나) <span id="me_txt">...</span> VS <span id="prog_txt">...</span> (프로그램)</h2>
 
+                <h3 id="result_txt" class="text-center">아래 가위, 바위, 보 버튼중 하나를 클릭하세요.</h3>
 
                 <div data-role="controlgroup" data-type="horizontal" class="btn-horizontal">
-                    <a href="#" data-role="button" data-icon="star" class="btn-scissors ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">가위</a>
+                    <a href="#" data-role="button" data-icon="star" result-idx="0" class="btn-scissors ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">가위</a>
                     
-                    <a href="#" data-role="button" data-icon="star" class="btn-rock ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">바위</a>
+                    <a href="#" data-role="button" data-icon="star" result-idx="1" class="btn-rock ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">바위</a>
                     
-                    <a href="#" data-role="button" data-icon="star" class="btn-paper ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">보</a>
+                    <a href="#" data-role="button" data-icon="star" result-idx="2" class="btn-paper ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">보</a>
                 </div>
 
                 <hr>
@@ -63,6 +65,54 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
+        </script>
+        <script type="text/javascript">
+            // 배열로 가위바위보 저장
+            var result = ["scissors", "rock", "paper"];
+            var result_kr = ["가위", "바위", "보"];
+
+            $(function() {
+                // 가위 바위 보 버튼을 클릭할 때,
+                $(".btn-rock, .btn-paper, .btn-scissors").click(function () {
+                    var me = $(this).attr("result-idx");
+                    var prog = Math.floor(Math.random() * 3);
+                    var win_cnt = Number($("#text-win").val());
+                    var lose_cnt = Number($("#text-lose").val());
+
+                    $("#me_txt").html(result_kr[me]);
+                    $("#prog_txt").html(result_kr[prog]);
+
+                    // 비김
+                    if(me==prog) {
+                        $("#result_txt").html("비겼습니다.");
+                    } else {
+                        if((me==0&&prog==2)||(me==1&&prog==0)||(me==2&&prog==1)) {
+                            $("#result_txt").html("이겼습니다.");
+                            win_cnt++;
+                            $("#text-win").val(win_cnt);
+                        } else {
+                            $("#result_txt").html("졌습니다.");
+                            lose_cnt++;
+                            $("#text-lose").val(lose_cnt);
+                        }
+                    }
+
+                    if(lose_cnt+win_cnt>0) {
+                        var win_rate = Math.round( win_cnt / ( lose_cnt+win_cnt ) * 100 );
+                        $("#text-rate").val( win_rate + " %" );                        
+                    }
+                });
+
+                $(".btn-reset").click(function () {
+                    $("#text-win").val("0");
+                    $("#text-lose").val("0");
+                    $("#text-rate").val("0 %");
+
+                    $("#me_txt").html("...");
+                    $("#prog_txt").html("...");
+                    $("#result_txt").html("아래 가위, 바위, 보 버튼중 하나를 클릭하세요.");
+                });
+            })
         </script>
     </body>
 </html>
