@@ -13,7 +13,9 @@
         <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
         <style>
-            .width-md-3 { width: 30%; float: left; margin-right: 5px;}
+            .width-md-3 { width: 30%; float: left; margin-right: 5px; }
+            .btn-horizontal { text-align: center; }
+            .btn-horizontal .ui-btn { padding-right: 30px; padding-left: 50px; }
         </style>
     </head>
     <body>
@@ -22,28 +24,34 @@
                 <h1>가위 바위 보</h1>
             </div>
             <div data-role="content" data-theme="a">
+                <h2>컴퓨터 : <span id="#app_txt">...</span></h2>
 
-                <a href="#" data-role="button" data-icon="star" class="scissors">가위</a>
-                
-                <a href="#" data-role="button" data-icon="star" class="btn-rock">바위</a>
-                
-                <a href="#" data-role="button" data-icon="star" class="btn-paper">보</a>
+
+                <div data-role="controlgroup" data-type="horizontal" class="btn-horizontal">
+                    <a href="#" data-role="button" data-icon="star" class="btn-scissors ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">가위</a>
+                    
+                    <a href="#" data-role="button" data-icon="star" class="btn-rock ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">바위</a>
+                    
+                    <a href="#" data-role="button" data-icon="star" class="btn-paper ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-e">보</a>
+                </div>
+
+                <hr>
 
                 <h2>경기결과</h2>
                 
                 <div class="width-md-3">
                     <label for="text-basic">승:</label>
-                    <input type="text" name="text-basic" id="text-win" value="">
+                    <input type="text" name="text-basic" id="text-win" value="0">
                 </div>
 
                 <div class="width-md-3">
                     <label for="text-basic">패:</label>
-                    <input type="text" name="text-basic" id="text-lose" value="">
+                    <input type="text" name="text-basic" id="text-lose" value="0">
                 </div>
 
                 <div class="width-md-3">
                     <label for="text-basic">승률:</label>
-                    <input type="text" name="text-basic" id="text-rate" value="">
+                    <input type="text" name="text-basic" id="text-rate" value="0 %">
                 </div>
 
                 <a href="#" data-role="button" data-icon="delete" data-theme="c" class="btn-reset">다시하기</a>
